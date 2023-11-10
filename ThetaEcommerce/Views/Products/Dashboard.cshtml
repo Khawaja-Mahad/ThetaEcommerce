@@ -1,0 +1,172 @@
+﻿@{
+    SelectList catagoryList = new SelectList(ViewBag.CatagoryList, "Id", "Name");
+     Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/project.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Sen:wght@400;700;800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Custom fonts for this template-->
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <style>
+        .maindiv img {
+            max-width: 200px; /* Adjust the width to your desired size */
+            max-height: 200px; /* Adjust the height to your desired size */
+            object-fit: cover;
+            padding-left: 55px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap:wrap;
+        }
+
+            /* Add this style for the images inside the container */
+            .image-container img {
+                max-width: 200px; /* Adjust the width to your desired size */
+                max-height: 200px; /* Adjust the height to your desired size */
+                object-fit: cover;
+                box-sizing: border-box;
+                margin-right: 10px; /* Add some spacing between images */
+            }
+
+        /* Add this style for product details */
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Add this style for the zoom effect */
+        .image-container img:hover {
+            transform: scale(1.2); /* Adjust the scale factor as needed for zoom effect */
+            transition: transform 0.3s; /* Adjust the duration for smooth zooming */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="navbar-container">
+                <div class="logo-container">
+                    <h1 class="logo">Style up</h1>
+                </div>
+                <div class="menu-container">
+                    <ul class="menu-list">
+                        <li class="menu-list-item"><a href="/Home">HOME</a></li>
+                        <li class="menu-list-item"><a href=""></a></li>
+
+                    </ul>
+                </div>
+                <div class="profile-container">
+                    <img class="profile-pic" src="/images/pic.JPG" alt="">
+                    <span class="profile-text">Profile</span>
+                    <i class="fa-solid fa-caret-down"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <i class="left-menu-icon fas fa-search"></i>
+            <i class="left-menu-icon fas fa-home"> </i>
+            <i class="left-menu-icon fas fa-users"></i>
+            <i class="left-menu-icon fa-solid fa-bookmark"></i>
+            <i class="left-menu-icon fa-solid fa-tv"></i>
+            <i class="left-menu-icon fa-solid fa-hourglass"></i>
+            <i class="left-menu-icon fa-solid fa-cart-shopping"></i>
+        </div>
+
+    </header>
+    
+    <div class="container">
+        <h1>Products</h1>
+
+        @Html.DropDownList("CatagoryId", catagoryList, "Select Catagory")
+  
+        <div class="maindiv">
+            <!-- This is where the products will be loaded -->
+      
+
+        </div>
+
+
+    </div>
+   
+
+    <footer class="footter">
+        <div class="coontainer">
+            <div class="roow">
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">about us</a></li>
+                        <li><a href="#">our services</a></li>
+                        <li><a href="#">privacy policy</a></li>
+                        <li><a href="#">affiliate program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get help</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">How to watch</a></li>
+                        <li><a href="#">Upload Details</a></li>
+                        <li><a href="#">order</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Follow us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    @* <script src="~/Project.js"></script> *@
+    <script>
+
+        $("#CatagoryId").change(function () {
+            $.ajax({
+                url: "LoadProducts",
+                method: "GET",
+                data: {
+                    Id: $(this).val(),
+                },
+                success: function (result) {
+                    $(".maindiv").html(result);
+                },
+                error: function (result) {
+                }
+            });
+        });
+
+
+    </script>
+    
+</body>
+
+</html>  
